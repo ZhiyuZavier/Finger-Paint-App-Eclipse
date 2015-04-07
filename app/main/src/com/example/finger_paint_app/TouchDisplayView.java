@@ -371,7 +371,7 @@ public class TouchDisplayView extends View{
             int id = mTouches.keyAt(i);
             TouchHistory data = mTouches.valueAt(i);
 
-            drawCircle(canvas, id, data);
+            //drawCircle(canvas, id, data);
 
             if(shape == 2){
                 // draw the data and its history to the canvas

@@ -76,6 +76,26 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 TouchDisplayView.shape = 0;
             }
         });
+        
+        btnSquare = (ImageButton) findViewById(R.id.imgBtnSquare);
+        btnSquare.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Log.e("click","square was clicked");
+				TouchDisplayView.shape = 1;				
+			}
+		});
+        
+        btnCircle = (ImageButton) findViewById(R.id.imgBtnCircle);
+        btnCircle.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Log.e("click","circle was clicked");
+				TouchDisplayView.shape = 2;					
+			}
+		});
 
         btnSave = (Button) findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {

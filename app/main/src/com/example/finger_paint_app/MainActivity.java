@@ -31,6 +31,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     ToggleButton btnGreen;
     ToggleButton btnBlue;
     ToggleButton btnViolet;
+    ToggleButton btnOrange;
 
     ImageButton btnTriangle;
     ImageButton btnSquare;
@@ -67,6 +68,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         btnViolet = (ToggleButton) findViewById(R.id.toggleBtnViolet);
         btnViolet.setOnClickListener(this);
+        
+        btnOrange = (ToggleButton) findViewById(R.id.toggleBtnOrange);
+        btnOrange.setOnClickListener(this);
 
         btnTriangle = (ImageButton) findViewById(R.id.imgBtnTriangle);
         btnTriangle.setOnClickListener(new View.OnClickListener() {
@@ -183,12 +187,38 @@ public class MainActivity extends Activity implements View.OnClickListener{
             }
 
             case R.id.toggleBtnYellow: {
-                Log.e("choose yellow","yellow button was clicked");
-                /*TouchDisplayView view = new TouchDisplayView(getApplicationContext());
-                view.setColor(1)*/;
+                Log.e("choose yellow","yellow button was clicked");                
                 TouchDisplayView.color = 1;
                 break;
             }
+            
+            case R.id.toggleBtnGreen: {
+                Log.e("choose green","green button was clicked");                
+                TouchDisplayView.color = 2;
+                break;
+            }
+            
+            case R.id.toggleBtnBlue: {
+                Log.e("choose blue","blue button was clicked");                
+                TouchDisplayView.color = 3;
+                break;
+            }
+            
+            case R.id.toggleBtnViolet: {
+                Log.e("choose violet","violet button was clicked");                
+                TouchDisplayView.color = 4;
+                break;
+            }
+            
+            case R.id.toggleBtnOrange: {
+                Log.e("choose orange","orange button was clicked");                
+                TouchDisplayView.color = 5;
+                break;
+            }
+            
+            default:
+				break;
+            
         }
 
 //        if(shapePressed.getId() ==R.id.imgBtnTriangle)

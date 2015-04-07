@@ -40,9 +40,17 @@ public class TouchDisplayView extends View{
     };
 
     private Paint mCirclePaint = new Paint();
+    private Paint mTrianglePaint = new Paint();
+    private Paint mSquarePaint = new Paint();
 
     // calculated radiuses in px
-    private float mCircleRadius = 50;
+    private float mCircleRadius;
+    private float mTriangleRadius;
+    private float mSquareRadius;
+    
+    // radius of active touch circle in dp
+    private static final float CIRCLE_RADIUS_DP = 35f;
+    
 
     // Hold data for active touch pointer IDs
     private SparseArray<TouchHistory> mTouches;
@@ -140,7 +148,7 @@ public class TouchDisplayView extends View{
         // SparseArray for touch events, indexed by touch id
         mTouches = new SparseArray<TouchHistory>(10);
 
-        //initialisePaint();
+        initialisePaint();
         canvasHeight = this.getHeight();
         canvasWidth = this.getWidth();
     }
@@ -167,7 +175,7 @@ public class TouchDisplayView extends View{
         // SparseArray for touch events, indexed by touch id
         mTouches = new SparseArray<TouchHistory>(10);
 
-        //initialisePaint();
+        initialisePaint();
     }
 
     public int getColor() {
@@ -372,17 +380,41 @@ public class TouchDisplayView extends View{
             TouchHistory data = mTouches.valueAt(i);
 
             //drawCircle(canvas, id, data);
+            // draw the data and its history to the canvas
+            switch (shape) {
+			case 0:
+				drawTriangle(canvas, id, data);
+				break;
+			case 1:
+				drawSquare(canvas, id, data);
+				break;
+			case 2:
+				drawCircle(canvas, id, data);
+				break;
+			default:
+				break;
+			}
 
-            if(shape == 2){
+            /*if(shape == 2){
                 // draw the data and its history to the canvas
                 drawCircle(canvas, id, data);
             }
             else if(shape == 0){
                 drawTriangle(canvas, id, data);
-            }
+            }*/
 
 
         }
+    }
+    
+    private void initialisePaint() {
+
+        // Calculate radiuses in px from dp based on screen density
+        float density = getResources().getDisplayMetrics().density;
+        mCircleRadius = CIRCLE_RADIUS_DP * density;
+        mTriangleRadius = CIRCLE_RADIUS_DP * density;
+        mSquareRadius = CIRCLE_RADIUS_DP * density;
+        
     }
 
     public void drawCircle(Canvas canvas, int id, TouchHistory data){
@@ -405,9 +437,66 @@ public class TouchDisplayView extends View{
     }
 
     public void drawTriangle (Canvas canvas, int id, TouchHistory data){
-
+    	mTrianglePaint.setColor(COLORS[color]);
+    	Log.e("color index","color="+color+COLORS[color]);
+    	
+    	/*
+         * Draw the circle, size scaled to its pressure. Pressure is clamped to
+         * 1.0 max to ensure proper drawing. (Reported pressure values can
+         * exceed 1.0, depending on the calibration of the touch screen).
+         */
+        float pressure = Math.min(data.pressure, 1f);
+        float radius = pressure * mTriangleRadius;
+        
+        canvas.drawLine(data.x, data.y+radius, 
+        		data.x-0.707f*radius,
+        		data.y-0.707f*radius, mTrianglePaint);
+        canvas.drawLine(data.x-0.707f*radius, 
+        		data.y-0.707f*radius, 
+        		data.x+0.707f*radius,
+        		data.y-0.707f*radius, mTrianglePaint);
+        canvas.drawLine(data.x, data.y+mTriangleRadius, 
+        		data.x+0.707f*radius,
+        		data.y-0.707f*radius, mTrianglePaint);
+        
+        for (int j = 0; j < data.history.length && j < data.historyCount; j++) {
+            PointF p = data.history[j];
+            canvas.drawLine(p.x, p.y+mTriangleRadius, 
+            		p.x-0.707f*mSquareRadius,
+            		p.y-0.707f*mSquareRadius, mTrianglePaint);
+            canvas.drawLine(p.x-0.707f*mSquareRadius, 
+            		p.y-0.707f*mSquareRadius, 
+            		p.x+0.707f*mSquareRadius,
+            		p.y-0.707f*mSquareRadius, mTrianglePaint);
+            canvas.drawLine(p.x, p.y+mTriangleRadius, 
+            		p.x+0.707f*mSquareRadius,
+            		p.y-0.707f*mSquareRadius, mTrianglePaint);
+        }
+        
+        
     }
 
+    public void drawSquare (Canvas canvas, int id, TouchHistory data){
+    	mSquarePaint.setColor(COLORS[color]);
+    	Log.e("color index","color="+color+COLORS[color]);
+    	
+    	/*
+         * Draw the circle, size scaled to its pressure. Pressure is clamped to
+         * 1.0 max to ensure proper drawing. (Reported pressure values can
+         * exceed 1.0, depending on the calibration of the touch screen).
+         */
+        float pressure = Math.min(data.pressure, 1f);
+        float radius = pressure * mSquareRadius;
+        
+        canvas.drawRect(data.x-0.707f*radius, data.y-0.707f*radius, 
+        		data.x+0.707f*radius, data.y+0.707f*radius, mSquarePaint);
+        
+        for (int j = 0; j < data.history.length && j < data.historyCount; j++) {
+            PointF p = data.history[j];
+            canvas.drawRect(p.x-0.707f*mSquareRadius, p.y-0.707f*mSquareRadius, 
+            		p.x+0.707f*mSquareRadius, p.y+0.707f*mSquareRadius, mSquarePaint);
+        }
+    }
     /**
      * Implement this to do your drawing.
      *

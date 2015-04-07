@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Finger_Paint_App</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="saving_preview">Saving widget preview…</string>
+    <string name="preview_saved">Widget preview saved!</string>
+    <string name="no_preview">Please take a snapshot first</string>
+    <string name="preview_save_error">Error saving preview</string>
+    <string name="configure_error">Error configuring, no configuration activity found</string>
+    <string name="email_subject">Widget preview</string>
+    <string name="email_body">Attached is the preview of your AppWidget</string>
+    <string name="btnEmailText">Email</string>
+
+
+</resources>

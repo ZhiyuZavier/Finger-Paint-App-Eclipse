@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/layout_controlpanel">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <Button
+            android:layout_width="82dp"
+            android:layout_height="37dp"
+            android:text="Save"
+            android:id="@+id/btnSave" />
+
+        <Button
+            android:layout_width="78dp"
+            android:layout_height="match_parent"
+            android:text="@string/btnEmailText"
+            android:id="@+id/btnEmail"
+            android:layout_weight="0.05" />
+
+        <Button
+            android:layout_width="79dp"
+            android:layout_height="match_parent"
+            android:text="Reset"
+            android:id="@+id/btnReset"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="79dp"
+            android:layout_height="match_parent"
+            android:text="Exit"
+            android:id="@+id/btnExit"
+            android:layout_gravity="right" />
+    </LinearLayout>
+</LinearLayout>

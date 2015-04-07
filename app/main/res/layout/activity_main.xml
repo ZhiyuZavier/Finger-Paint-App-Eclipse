@@ -1,0 +1,49 @@
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.finger_paint_app.MainActivity"
+    android:id="@+id/layout_main">
+
+    <include layout="@layout/layout_colourpanel"
+        android:id="@+id/layout_colourpanel"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"        
+    />
+    
+    <include layout="@layout/layout_shapespanel"
+        android:id="@+id/layout_shapespanel"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/layout_colourpanel" />
+    
+    <include layout="@layout/layout_controlpanel"
+        android:id="@+id/layout_controlpanel"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"  
+    />
+
+    <com.example.finger_paint_app.TouchDisplayView
+        android:id="@+id/paint_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_above="@id/layout_controlpanel"
+        android:layout_toRightOf="@id/layout_colourpanel"
+    />
+
+</RelativeLayout>

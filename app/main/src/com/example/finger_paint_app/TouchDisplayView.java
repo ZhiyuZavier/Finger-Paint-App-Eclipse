@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -31,7 +32,8 @@ public class TouchDisplayView extends View{
     ArrayList<PointF> points = new ArrayList<PointF>();
     public static int canvasHeight;
     public static int canvasWidth;
-    public static boolean isReset = false;
+    //public static boolean isReset = false;
+    public boolean cc = false;
 
    /*
     * Below are only helper methods and variables required for drawing.
@@ -372,9 +374,16 @@ public class TouchDisplayView extends View{
 
     @Override
     protected void onDraw(Canvas canvas){
-        super.onDraw(canvas);        
+        super.onDraw(canvas);
         
-            // loop through all active touches and draw them
+        if (cc) {
+        	Paint clearPaint = new Paint();
+        	clearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        	canvas.drawRect(0, 0, 0, 0, clearPaint);
+        	cc = false;
+			
+		} else {
+			// loop through all active touches and draw them
         	for (int i = 0; i < mTouches.size(); i++) {
 
                 // get the pointer id and associated data for this index
@@ -405,12 +414,17 @@ public class TouchDisplayView extends View{
                     drawTriangle(canvas, id, data);
                 }*/
             }
+		}                  
 		
 			//canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-	
-
+	       
         
-        
+    }
+    
+    public void clearCanvas()
+    {
+    	cc = true;
+    	invalidate();
     }
     
     private void initialisePaint() {

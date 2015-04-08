@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -30,6 +31,7 @@ public class TouchDisplayView extends View{
     ArrayList<PointF> points = new ArrayList<PointF>();
     public static int canvasHeight;
     public static int canvasWidth;
+    public static boolean isReset = false;
 
    /*
     * Below are only helper methods and variables required for drawing.
@@ -370,41 +372,45 @@ public class TouchDisplayView extends View{
 
     @Override
     protected void onDraw(Canvas canvas){
-        super.onDraw(canvas);
+        super.onDraw(canvas);        
+        
+            // loop through all active touches and draw them
+        	for (int i = 0; i < mTouches.size(); i++) {
 
-        // loop through all active touches and draw them
-        for (int i = 0; i < mTouches.size(); i++) {
+                // get the pointer id and associated data for this index
+                int id = mTouches.keyAt(i);
+                TouchHistory data = mTouches.valueAt(i);
 
-            // get the pointer id and associated data for this index
-            int id = mTouches.keyAt(i);
-            TouchHistory data = mTouches.valueAt(i);
-
-            //drawCircle(canvas, id, data);
-            // draw the data and its history to the canvas
-            switch (shape) {
-			case 0:
-				drawTriangle(canvas, id, data);
-				break;
-			case 1:
-				drawSquare(canvas, id, data);
-				break;
-			case 2:
-				drawCircle(canvas, id, data);
-				break;
-			default:
-				break;
-			}
-
-            /*if(shape == 2){
+                //drawCircle(canvas, id, data);
                 // draw the data and its history to the canvas
-                drawCircle(canvas, id, data);
+                switch (shape) {
+    			case 0:
+    				drawTriangle(canvas, id, data);
+    				break;
+    			case 1:
+    				drawSquare(canvas, id, data);
+    				break;
+    			case 2:
+    				drawCircle(canvas, id, data);
+    				break;
+    			default:
+    				break;
+    			}
+
+                /*if(shape == 2){
+                    // draw the data and its history to the canvas
+                    drawCircle(canvas, id, data);
+                }
+                else if(shape == 0){
+                    drawTriangle(canvas, id, data);
+                }*/
             }
-            else if(shape == 0){
-                drawTriangle(canvas, id, data);
-            }*/
+		
+			//canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+	
 
-
-        }
+        
+        
     }
     
     private void initialisePaint() {
@@ -496,7 +502,9 @@ public class TouchDisplayView extends View{
             canvas.drawRect(p.x-0.707f*mSquareRadius, p.y-0.707f*mSquareRadius, 
             		p.x+0.707f*mSquareRadius, p.y+0.707f*mSquareRadius, mSquarePaint);
         }
-    }
+    }    
+    
+    
     /**
      * Implement this to do your drawing.
      *

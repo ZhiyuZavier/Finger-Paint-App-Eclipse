@@ -39,6 +39,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     private Button btnSave = null;
     private Button btnEmail = null;
+    private Button btnExit = null;
+    private Button btnReset = null;
+    
 
     String mAppWidgetName = "screen shot";
     private static final String LOG_TAG = "MainActivity";
@@ -144,6 +147,24 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 }
             }
         });
+        
+        btnExit = (Button) findViewById(R.id.btnExit);
+        btnExit.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				System.exit(0);					
+			}
+		});
+        
+        btnReset = (Button) findViewById(R.id.btnReset);
+        btnReset.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//TouchDisplayView.isReset = true;				
+			}
+		});
 	}
 
 	@Override

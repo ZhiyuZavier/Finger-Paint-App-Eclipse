@@ -13,10 +13,10 @@
         android:weightSum="1">
 
         <Button
+            android:id="@+id/btnSave"
             android:layout_width="82dp"
-            android:layout_height="37dp"
-            android:text="Save"
-            android:id="@+id/btnSave" />
+            android:layout_height="match_parent"
+            android:text="Save" />
 
         <Button
             android:layout_width="78dp"

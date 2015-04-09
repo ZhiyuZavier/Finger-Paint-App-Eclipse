@@ -9,32 +9,35 @@
     tools:context="com.example.finger_paint_app.MainActivity"
     android:id="@+id/layout_main">
 
-    <include layout="@layout/layout_colourpanel"
+    <include
         android:id="@+id/layout_colourpanel"
-        android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"        
-    />
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_vertical"
+        layout="@layout/layout_colourpanel" />
     
-    <include layout="@layout/layout_shapespanel"
+    <include
         android:id="@+id/layout_shapespanel"
-        android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/paint_view"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/layout_colourpanel" />
-    
-    <include layout="@layout/layout_controlpanel"
-        android:id="@+id/layout_controlpanel"
+        android:layout_alignRight="@+id/layout_colourpanel"
+        android:layout_below="@+id/layout_colourpanel"
         android:layout_gravity="center_vertical"
+        layout="@layout/layout_shapespanel" />
+    
+    <include
+        android:id="@+id/layout_controlpanel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/layout_shapespanel"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"  
-    />
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center_vertical"
+        layout="@layout/layout_controlpanel" />
 
     <com.example.finger_paint_app.TouchDisplayView
         android:id="@+id/paint_view"

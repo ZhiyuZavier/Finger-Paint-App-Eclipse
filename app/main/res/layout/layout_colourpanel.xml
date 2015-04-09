@@ -10,17 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ToggleButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/toggleBtnRed"
-            android:background="#ffff2538" />
+            android:id="@+id/toggleBtnRed"            
+            android:background="@drawable/transparent_button"
+            />
 
-        <ToggleButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/toggleBtnYellow"
-            android:background="#ffe3ff2a" />
+            android:background="@drawable/transparent_button" />
     </LinearLayout>
 
     <LinearLayout
@@ -28,13 +29,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ToggleButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/toggleBtnGreen"
             android:background="#ff6dff81" />
 
-        <ToggleButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/toggleBtnBlue"
@@ -46,13 +47,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ToggleButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/toggleBtnViolet"
             android:background="#ffb556ff" />
 
-        <ToggleButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/toggleBtnOrange"

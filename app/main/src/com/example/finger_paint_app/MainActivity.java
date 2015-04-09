@@ -26,12 +26,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
  //    ToggleButton[] toggleButtons = new ToggleButton[6];
 //    ImageButton[] imageButtons = new ImageButton[3];
     TouchDisplayView touchDisplayView;
-    ToggleButton btnRed;
-    ToggleButton btnYellow;
-    ToggleButton btnGreen;
-    ToggleButton btnBlue;
-    ToggleButton btnViolet;
-    ToggleButton btnOrange;
+    Button btnRed;
+    Button btnYellow;
+    Button btnGreen;
+    Button btnBlue;
+    Button btnViolet;
+    Button btnOrange;
 
     ImageButton btnTriangle;
     ImageButton btnSquare;
@@ -54,25 +54,25 @@ public class MainActivity extends Activity implements View.OnClickListener{
 		touchDisplayView = (TouchDisplayView)findViewById(R.id.paint_view);
         //touchDisplayView = (TouchDisplayView)findViewById(R.id.paint_view);
 
-        btnRed = (ToggleButton) findViewById(R.id.toggleBtnRed);
+        btnRed = (Button) findViewById(R.id.toggleBtnRed);
         btnRed.setOnClickListener(this);
 
-        btnYellow = (ToggleButton) findViewById(R.id.toggleBtnYellow);
+        btnYellow = (Button) findViewById(R.id.toggleBtnYellow);
         btnYellow.setOnClickListener(this);
 
-        btnGreen = (ToggleButton) findViewById(R.id.toggleBtnGreen);
+        btnGreen = (Button) findViewById(R.id.toggleBtnGreen);
         btnGreen.setOnClickListener(this);
 
-        btnRed = (ToggleButton) findViewById(R.id.toggleBtnRed);
-        btnRed.setOnClickListener(this);
+       /* btnRed = (ToggleButton) findViewById(R.id.toggleBtnRed);
+        btnRed.setOnClickListener(this);*/
 
-        btnBlue = (ToggleButton) findViewById(R.id.toggleBtnBlue);
+        btnBlue = (Button) findViewById(R.id.toggleBtnBlue);
         btnBlue.setOnClickListener(this);
 
-        btnViolet = (ToggleButton) findViewById(R.id.toggleBtnViolet);
+        btnViolet = (Button) findViewById(R.id.toggleBtnViolet);
         btnViolet.setOnClickListener(this);
         
-        btnOrange = (ToggleButton) findViewById(R.id.toggleBtnOrange);
+        btnOrange = (Button) findViewById(R.id.toggleBtnOrange);
         btnOrange.setOnClickListener(this);
 
         btnTriangle = (ImageButton) findViewById(R.id.imgBtnTriangle);
@@ -194,7 +194,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
      */
     @Override
     public void onClick(View v) {
-        ToggleButton colorPressed = (ToggleButton)v;
+        Button colorPressed = (Button)v;
         //ImageButton shapePressed = (ImageButton)v;
         // determine which button was pressed
 
@@ -205,12 +205,16 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.toggleBtnRed: {
                 Log.e("choose red","red button was clicked");
                 TouchDisplayView.color = 0;
+                btnRed.setSelected(true);
+                btnYellow.setSelected(false);
                 break;
             }
 
             case R.id.toggleBtnYellow: {
                 Log.e("choose yellow","yellow button was clicked");                
                 TouchDisplayView.color = 1;
+                btnRed.setSelected(false);
+                btnYellow.setSelected(true);
                 break;
             }
             

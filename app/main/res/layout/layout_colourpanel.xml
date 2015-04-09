@@ -50,13 +50,13 @@
             android:id="@+id/toggleBtnRed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/transparent_button" />
+            android:background="@drawable/red_button" />
 
         <Button
             android:id="@+id/toggleBtnYellow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/transparent_button" />
+            android:background="@drawable/yellow_button" />
     </LinearLayout>
 
     <LinearLayout
@@ -68,13 +68,13 @@
             android:id="@+id/toggleBtnGreen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#ff6dff81" />
+            android:background="@drawable/green_button" />
 
         <Button
             android:id="@+id/toggleBtnBlue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#ff402fff" />
+            android:background="@drawable/blue_button" />
 
     </LinearLayout>
 
@@ -87,13 +87,13 @@
             android:id="@+id/toggleBtnViolet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#ffb556ff" />
+            android:background="@drawable/violet_button" />
 
         <Button
             android:id="@+id/toggleBtnOrange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#ffffc526" />
+            android:background="@drawable/orange_button" />
 
     </LinearLayout>
 

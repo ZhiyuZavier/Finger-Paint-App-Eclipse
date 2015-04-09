@@ -207,6 +207,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 TouchDisplayView.color = 0;
                 btnRed.setSelected(true);
                 btnYellow.setSelected(false);
+                btnGreen.setSelected(false);
+                btnBlue.setSelected(false);
+                btnViolet.setSelected(false);
+                btnOrange.setSelected(false);                
                 break;
             }
 
@@ -215,30 +219,58 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 TouchDisplayView.color = 1;
                 btnRed.setSelected(false);
                 btnYellow.setSelected(true);
+                btnGreen.setSelected(false);
+                btnBlue.setSelected(false);
+                btnViolet.setSelected(false);
+                btnOrange.setSelected(false);                
                 break;
             }
             
             case R.id.toggleBtnGreen: {
                 Log.e("choose green","green button was clicked");                
                 TouchDisplayView.color = 2;
+                btnRed.setSelected(false);
+                btnYellow.setSelected(false);
+                btnGreen.setSelected(true);
+                btnBlue.setSelected(false);
+                btnViolet.setSelected(false);
+                btnOrange.setSelected(false);               
                 break;
             }
             
             case R.id.toggleBtnBlue: {
                 Log.e("choose blue","blue button was clicked");                
                 TouchDisplayView.color = 3;
+                btnRed.setSelected(false);
+                btnYellow.setSelected(false);
+                btnGreen.setSelected(false);
+                btnBlue.setSelected(true);
+                btnViolet.setSelected(false);
+                btnOrange.setSelected(false);
                 break;
             }
             
             case R.id.toggleBtnViolet: {
                 Log.e("choose violet","violet button was clicked");                
                 TouchDisplayView.color = 4;
+                btnRed.setSelected(false);
+                btnYellow.setSelected(false);
+                btnGreen.setSelected(false);
+                btnBlue.setSelected(false);
+                btnViolet.setSelected(true);
+                btnOrange.setSelected(false);                
                 break;
             }
             
             case R.id.toggleBtnOrange: {
                 Log.e("choose orange","orange button was clicked");                
                 TouchDisplayView.color = 5;
+                btnRed.setSelected(false);
+                btnYellow.setSelected(false);
+                btnGreen.setSelected(false);
+                btnBlue.setSelected(false);
+                btnViolet.setSelected(false);
+                btnOrange.setSelected(true);            
                 break;
             }
             

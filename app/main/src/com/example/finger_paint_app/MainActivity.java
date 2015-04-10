@@ -23,8 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class MainActivity extends Activity implements View.OnClickListener{
- //    ToggleButton[] toggleButtons = new ToggleButton[6];
-//    ImageButton[] imageButtons = new ImageButton[3];
+
     TouchDisplayView touchDisplayView;
     Button btnRed;
     Button btnYellow;
@@ -48,11 +47,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-        //touchDisplayView = new TouchDisplayView(this); //paintView = new PaintView(getApplicationContext());
+		super.onCreate(savedInstanceState);        
 		setContentView(R.layout.activity_main);
-		touchDisplayView = (TouchDisplayView)findViewById(R.id.paint_view);
-        //touchDisplayView = (TouchDisplayView)findViewById(R.id.paint_view);
+		touchDisplayView = (TouchDisplayView)findViewById(R.id.paint_view);        
 
         btnRed = (Button) findViewById(R.id.toggleBtnRed);
         btnRed.setOnClickListener(this);
@@ -61,10 +58,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         btnYellow.setOnClickListener(this);
 
         btnGreen = (Button) findViewById(R.id.toggleBtnGreen);
-        btnGreen.setOnClickListener(this);
-
-       /* btnRed = (ToggleButton) findViewById(R.id.toggleBtnRed);
-        btnRed.setOnClickListener(this);*/
+        btnGreen.setOnClickListener(this);      
 
         btnBlue = (Button) findViewById(R.id.toggleBtnBlue);
         btnBlue.setOnClickListener(this);
@@ -161,8 +155,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         btnReset.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				//TouchDisplayView.isReset = true;	
+			public void onClick(View v) {				
 				touchDisplayView.clearCanvas();
 			}
 		});
@@ -194,11 +187,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
      */
     @Override
     public void onClick(View v) {
-        Button colorPressed = (Button)v;
-        //ImageButton shapePressed = (ImageButton)v;
-        // determine which button was pressed
-
-        //touchDisplayView = (TouchDisplayView) findViewById(R.id.paint_view);
+        Button colorPressed = (Button)v;        
+        // determine which button was pressed        
 
         switch (colorPressed.getId()) {
 
@@ -275,26 +265,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
             }
             
             default:
-				break;
-            
+				break;            
         }
-
-//        if(shapePressed.getId() ==R.id.imgBtnTriangle)
-//        {
-//            paintView.setShape(1);
-//            Log.e("choose triangle","triangle button was clicked");
-//        }
 
     }
 
-/*    ToggleButton btn1 = (ToggleButton) findViewById(R.id.toggleBtnRed);
-    btn1.setOnClickListener(new View.OnClickListener()
-    {
-        public void onClick(View v)
-        {
-
-        }
-    });*/
 
     private File buildFile(String name) {
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -318,9 +293,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
     public Bitmap getPreviewBitmap() {
-        //paintView.invalidate();
-        //Bitmap bmp = Bitmap.createBitmap(
-                //paintView.getWidth(), paintView.getHeight(), Bitmap.Config.ARGB_8888);
+        
         Log.e(LOG_TAG,"width " + touchDisplayView.getWidth());
         Log.e(LOG_TAG,"height " + touchDisplayView.getHeight());
 
@@ -329,11 +302,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bmp);
         touchDisplayView.draw(c);
-        return bmp;
-        /*paintView.setDrawingCacheEnabled(true);
-        paintView.buildDrawingCache();
-        Bitmap bm = paintView.getDrawingCache();
-        return bm;*/
+        return bmp;        
     }
 
     private boolean saveImage(Bitmap bmp, String name) {

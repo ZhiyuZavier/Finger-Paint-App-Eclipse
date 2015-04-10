@@ -21,22 +21,15 @@ import java.util.List;
 import com.example.finger_paint_app.Pools.SimplePool;
 
 /**
- * Created by OEM on 4/04/2015.
+ * Created by Zhiyu Lei on 4/04/2015.
  */
 public class TouchDisplayView extends View{
     public static int color;
-    public static int shape;
-    float posX;
-    float posY;
-    Paint paint = new Paint();
-    ArrayList<PointF> points = new ArrayList<PointF>();
-    public static int canvasHeight;
-    public static int canvasWidth;
-    //public static boolean isReset = false;
+    public static int shape;    
     public boolean cc = false;
 
    /*
-    * Below are only helper methods and variables required for drawing.
+    * Below are variables required for drawing.
    */
     public final int[] COLORS = {
             0xFFFF2538, 0xFFE3ff2A, 0xFF6DFF81, 0xFF402FFF, 0xFFB556FF,
@@ -49,8 +42,11 @@ public class TouchDisplayView extends View{
 
     // calculated radiuses in px
     private float mCircleRadius;
+    private float mCircleCurrentRadius;
     private float mTriangleRadius;
+    private float mTriangleCurrentRadius;
     private float mSquareRadius;
+    private float mSquareCurrentRadius;
     
     // radius of active touch circle in dp
     private static final float CIRCLE_RADIUS_DP = 35f;
@@ -71,7 +67,7 @@ public class TouchDisplayView extends View{
     static final class TouchHistory {
 
         // number of historical points to store
-        public static final int HISTORY_COUNT = 20;
+        public static final int HISTORY_COUNT = 100;
 
         public float x;
         public float y;
@@ -153,8 +149,6 @@ public class TouchDisplayView extends View{
         mTouches = new SparseArray<TouchHistory>(10);
 
         initialisePaint();
-        canvasHeight = this.getHeight();
-        canvasWidth = this.getWidth();
     }
 
     /**
@@ -182,22 +176,6 @@ public class TouchDisplayView extends View{
         initialisePaint();
     }
 
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
-    }
-
-    public int getShape() {
-        return shape;
-    }
-
-    public void setShape(int shape) {
-        this.shape = shape;
-    }
-
     /**
      * Called when a touch event is dispatched to a view. This allows listeners to
      * get a chance to respond before the target view.
@@ -207,20 +185,6 @@ public class TouchDisplayView extends View{
      *              the event.
      * @return True if the listener has consumed the event, false otherwise.
      */
-/*
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        posX = event.getX();
-        Log.e("touch","X="+posX);
-        posY = event.getY();
-        Log.e("touch","Y="+posY);
-        PointF point;
-        point = new PointF(posX, posY);
-        points.add(point);
-        return true;
-    }
-*/
-
     public boolean onTouchEvent (MotionEvent event) {
 
         final int action = event.getAction();
@@ -285,49 +249,7 @@ public class TouchDisplayView extends View{
                 mTouches.put(id, data);
 
                 break;
-            }
-
-            /*case MotionEvent.ACTION_UP: {
-                *//*
-                 * Final pointer has gone up and has ended the last pressed
-                 * gesture.
-                 *//*
-
-                *//*
-                 * Extract the pointer identifier for the only event stored in
-                 * the MotionEvent object and remove it from the list of active
-                 * touches.
-                 *//*
-                int id = event.getPointerId(0);
-                TouchHistory data = mTouches.get(id);
-                mTouches.remove(id);
-                data.recycle();
-
-                mHasTouch = false;
-
-                break;
-            }
-*/
-            /*case MotionEvent.ACTION_POINTER_UP: {
-                *//*
-                 * A non-primary pointer has gone up and other pointers are
-                 * still active.
-                 *//*
-
-                *//*
-                 * The MotionEvent object contains multiple pointers. Need to
-                 * extract the index at which the data for this particular event
-                 * is stored.
-                 *//*
-                int index = event.getActionIndex();
-                int id = event.getPointerId(index);
-
-                TouchHistory data = mTouches.get(id);
-                mTouches.remove(id);
-                data.recycle();
-
-                break;
-            }*/
+            }           
 
             case MotionEvent.ACTION_MOVE: {
                 /*
@@ -372,6 +294,11 @@ public class TouchDisplayView extends View{
         return true;
     }
 
+    /**
+     * Implement this to do your drawing.
+     *
+     * @param canvas the canvas on which the background will be drawn
+     */  
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
@@ -389,8 +316,7 @@ public class TouchDisplayView extends View{
                 // get the pointer id and associated data for this index
                 int id = mTouches.keyAt(i);
                 TouchHistory data = mTouches.valueAt(i);
-
-                //drawCircle(canvas, id, data);
+                
                 // draw the data and its history to the canvas
                 switch (shape) {
     			case 0:
@@ -406,21 +332,13 @@ public class TouchDisplayView extends View{
     				break;
     			}
 
-                /*if(shape == 2){
-                    // draw the data and its history to the canvas
-                    drawCircle(canvas, id, data);
-                }
-                else if(shape == 0){
-                    drawTriangle(canvas, id, data);
-                }*/
             }
-		}                  
-		
-			//canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-	       
+		}                 
+			      
         
     }
     
+    // Method for Reset Button
     public void clearCanvas()
     {
     	cc = true;
@@ -432,8 +350,11 @@ public class TouchDisplayView extends View{
         // Calculate radiuses in px from dp based on screen density
         float density = getResources().getDisplayMetrics().density;
         mCircleRadius = CIRCLE_RADIUS_DP * density;
+        mCircleCurrentRadius = 2 * CIRCLE_RADIUS_DP * density;
         mTriangleRadius = CIRCLE_RADIUS_DP * density;
+        mTriangleCurrentRadius = 2 * CIRCLE_RADIUS_DP * density;
         mSquareRadius = CIRCLE_RADIUS_DP * density;
+        mSquareCurrentRadius = 2 * CIRCLE_RADIUS_DP * density;
         
     }
 
@@ -446,7 +367,7 @@ public class TouchDisplayView extends View{
          * exceed 1.0, depending on the calibration of the touch screen).
          */
         float pressure = Math.min(data.pressure, 1f);
-        float radius = pressure * mCircleRadius;
+        float radius = pressure * mCircleCurrentRadius;
 
         canvas.drawCircle(data.x, data.y, radius, mCirclePaint);
 
@@ -466,7 +387,7 @@ public class TouchDisplayView extends View{
          * exceed 1.0, depending on the calibration of the touch screen).
          */
         float pressure = Math.min(data.pressure, 1f);
-        float radius = pressure * mTriangleRadius;
+        float radius = pressure * mTriangleCurrentRadius;
         
         canvas.drawLine(data.x, data.y+radius, 
         		data.x-0.707f*radius,
@@ -506,7 +427,7 @@ public class TouchDisplayView extends View{
          * exceed 1.0, depending on the calibration of the touch screen).
          */
         float pressure = Math.min(data.pressure, 1f);
-        float radius = pressure * mSquareRadius;
+        float radius = pressure * mSquareCurrentRadius;
         
         canvas.drawRect(data.x-0.707f*radius, data.y-0.707f*radius, 
         		data.x+0.707f*radius, data.y+0.707f*radius, mSquarePaint);
@@ -517,50 +438,8 @@ public class TouchDisplayView extends View{
             		p.x+0.707f*mSquareRadius, p.y+0.707f*mSquareRadius, mSquarePaint);
         }
     }    
-    
-    
-    /**
-     * Implement this to do your drawing.
-     *
-     * @param canvas the canvas on which the background will be drawn
-     */
-   /* @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        //canvas.drawColor(Color.BLUE);
-        paint = new Paint();
-        paint.setColor(Color.RED);
-        canvas.drawText("Welcome to Mobile Programming", 5, 10, paint);
-        int canvasHeight = this.getHeight();
-        int canvasWidth = this.getWidth();
-
-        float widthOffset = canvasWidth / 2;
-        float heightOffset = canvasHeight / 2;
-
-        paint.setColor(Color.GREEN);
-
-        canvas.drawRect(widthOffset-28, heightOffset-28, widthOffset+28, heightOffset+28, paint);
-
-        canvas.drawLine(widthOffset-28, heightOffset-28, widthOffset+28, heightOffset+28, paint);
-        canvas.drawLine(widthOffset+28, heightOffset-28, widthOffset-28, heightOffset+28, paint);
-
-        canvas.drawCircle(widthOffset-28, heightOffset-28, 10, paint);
-
-        paint.setColor(Color.BLACK);
-        paint.setStyle(Paint.Style.STROKE);
-        canvas.drawCircle(posX, posY, 10, paint);
-
-        // for each point, draw on canvas
-        for (PointF pointF : points){
-            canvas.drawCircle(pointF.x,pointF.y,54,paint);
-        }
-
-    *//*    canvas.drawLine(20, 20, 30, 30, paint);
-        canvas.drawLine(posX,posY,posX+10,posY+10,paint);*//*
-
-        // force the screen to be redrawn
-        invalidate();
-    }*/
+        
+     
 }
 
 
